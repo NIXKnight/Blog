@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="py-0">
+    <div class="container">
+      <div class="row">
+        <article class="col-md-12">
+          <div class="list-group list-spacer">
+            <div class="list-group-item border-0 text-center">
+              <header>
+                <div class="w-100 justify-content-center">
+                  <h1 class="mb-1">
+                    <strong>{{ article.title }}</strong>
+                  </h1>
+                  <hr class="bg-secondary">
+                  <p class="mb-1 text-muted">
+                    <span class="date-published"><i class="fas fa-newspaper px-2"></i><strong>Published:</strong> {{ article.date|strftime('%B %d, %Y') }}</span>
+                    {% if article.modified %}<span class="last-updated"><i class="far fa-calendar-alt px-2"></i><strong>Last Updated:</strong><time class="entry-modified-time" itemprop="dateModified" datetime="{{ article.modified }}"> {{ article.modified|strftime('%B %d, %Y') }}</time></span>{% endif %}
+                    <i class="fas fa-user-circle px-2"></i><strong>Author:</strong><span class="author"> Saad Ali</span>
+                  </p>
+                </div>
+              </header>
+            </div>
+          </div>
+          {{ article.content }}
+          <div class="likely">
+            <div class="facebook">Share</div>
+            <div class="twitter">Tweet</div>
+            <div class="linkedin">Share</div>
+          </div>
+          <hr class="bg-secondary">
+          <p class="text-muted">Tagged as: {% for tag in article.tags %}<span class="badge badge-dark"><a href="/tags/{{ tag.slug }}/">{{ tag.name }}</a></span>{% if not loop.last %}&nbsp;{% endif %}{% endfor %}</p>
+          <hr class="bg-secondary">
+          {% include 'disqus.html' %}
+        </article>
+      </div>
+    </div>
+  </div>
+{% endblock %}

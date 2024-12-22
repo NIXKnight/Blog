@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+  <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.3/darkly/bootstrap.min.css" rel="stylesheet" integrity="sha384-w+yWASP3zYNxxvwoQBD5fUSc1tctKq4KUiZzxgkBSJACiUp+IbweVKvsEhMI+gz7" crossorigin="anonymous">
+  <meta name="google-site-verification" content="GyNWd6d0MyLNdNrot29sgCcVrBIdqKySF_ZZsgnQak4" />
+  {% if article %}
+  <script src="/theme/assets/js/likely.js"></script>
+  <link href="/theme/assets/css/likely.css" rel="stylesheet" type="text/css">
+  <link href="/theme/assets/css/pygments.css" rel="stylesheet" type="text/css">
+  {% endif %}
+  {% if page_name == 'index' %}
+  <title>{{ SITENAME }} | {{ SITESUBTITLE }}</title>
+  <meta name="description" content="{{ SITESUBTITLE }}" />
+  <link rel="publisher" href="https://twitter.com/SaadKnight" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="{{ SITENAME }} | {{ SITESUBTITLE }}" />
+  <meta property="og:description" content="{{ SITESUBTITLE }}" />
+  <meta property="og:url" content="https://www.nixknight.com/" />
+  <meta property="og:site_name" content="{{ SITENAME }}" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:description" content="{{ SITESUBTITLE }}" />
+  <meta name="twitter:title" content="{{ SITENAME }} | {{ SITESUBTITLE }}" />
+  <meta name="twitter:site" content="@SaadKnight" />
+  {% elif article %}
+  <title>{{ article.title }} | {{ SITENAME }}</title>
+  <meta name="Description" content="{{ article.description|striptags }}" />
+  <meta name="keywords" content="{{ article.tags|join(', ') }}">
+  <link rel="canonical" href="https://www.nixknight.com/{{ article.url }}" />
+  <link rel="publisher" href="https://twitter.com/SaadKnight" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="{{ article.title }} | {{ SITENAME }}" />
+  <meta property="og:description" content="{{ article.description|striptags }}" />
+  <meta property="og:url" content="https://www.nixknight.com/{{ article.url }}" />
+  <meta property="og:site_name" content="{{ SITENAME }}" />
+  <meta itemprop="datePublished" content="2012-03-09T05:40:51+01:00">
+  <meta property="article:published_time" content="{{ article.date }}" />
+  {% if article.status == 'draft' %}
+  <meta name="robots" content="noindex, nofollow">
+  {% endif %}
+  {% if article.modified %}
+  <meta property="article:modified_time" content="{{ article.modified }}" />
+  {% endif %}
+  {% for tag in article.tags %}
+  <meta property="article:tag" content="{{ tag }}" />
+  {% endfor %}
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:description" content="{{ article.description|striptags }}" />
+  <meta name="twitter:title" content="{{ article.title }} | {{ SITENAME }}" />
+  <meta name="twitter:site" content="@SaadKnight" />
+  {% elif tag %}
+  <title>Tags - {{ tag }} | {{ SITENAME }}</title>
+  <meta name="Description" content="{{ tag }}" />
+  <link rel="canonical" href="https://www.nixknight.com/tags/{{ tag.slug }}/" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="Object" />
+  <meta property="og:title" content="Tags - {{ tag }} | {{ SITENAME }}" />
+  <meta property="og:description" content="{{ tag }}" />
+  <meta property="og:url" content="https://www.nixknight.com/tags/{{ tag.slug }}" />
+  <meta property="og:site_name" content="{{ SITENAME }}" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:description" content="{{ tag }}" />
+  <meta name="twitter:title" content="Tags - {{ tag }} | {{ SITENAME }}" />
+  <meta name="twitter:site" content="@SaadKnight" />
+  {% elif page_name == 'tags/index' %}
+  <title>Tags | {{ SITENAME }}</title>
+  <meta name="Description" content="{{ tag }}" />
+  <link rel="canonical" href="https://www.nixknight.com/tags/" />
+  {% elif output_file == '404.html' %}
+  <title>Page Not Found | {{ SITENAME }}</title>
+  <meta name="robots" content="noindex, nofollow">
+  {% elif output_file == 'about/index.html' %}
+  <title>About | {{ SITENAME }}</title>
+  <meta name="Description" content="About" />
+  <link rel="canonical" href="https://www.nixknight.com/about/" />
+  {% endif %}
+  <style>
+    a:link { color: #4881C7; }
+    a:visited { color: #4881C7; }
+    a:hover { color: #58A0F8; }
+    .social-icon a, .social-icon a:visited { color: #747474; }
+    .social-icon a:hover { color: #868686; }
+    .breadcrumb li a { color: white; }
+    .pagination li a, .pagination li a:visited { background: #4881C7; }
+    .pagination li a:hover { background: #58A0F8; }
+    body { font-size: 17px; }
+    .list-spacer { margin: 0 0 20px; }
+    {% if article %}
+    pre {
+      display: block;
+      border: 1px;
+      page-break-inside: avoid;
+      box-sizing: border-box;
+      padding: 10px;
+      margin: 0 0 10.5px;
+      line-height: 1.42857143;
+      word-break: break-all;
+      word-wrap: break-word;
+      border-radius: 4px;
+    }
+    blockquote {
+      border-left: 10px solid #757575;
+      margin: 1.5em 10px;
+      padding: 0.5em 10px;
+      quotes: "\201C""\201D""\2018""\2019";
+    }
+    {% endif %}
+  </style>
+</head>
+<body>
+  <div class="">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <hr class="bg-secondary">
+          <img class="img-fluid d-block mx-auto" src="/images/NIXKNIGHT-LOGO-1.png">
+          <hr class="bg-secondary">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 text-center align-self-center social-icon">
+          <a href="https://twitter.com/SaadKnight" target="_blank"><i class="fab fa-3x fa-twitter-square px-2"></i></a>
+          <a href="https://www.linkedin.com/in/saadali27/" target="_blank"><i class="fab fa-3x fa-linkedin px-2"></i></a>
+          <a href="https://github.com/NIXKnight" target="_blank"><i class="fab fa-3x fa-github-square px-2"></i></a>
+          <a href="https://keybase.io/NIXKnight/chat" target="_blank"><i class="fab fa-3x fa-keybase px-2"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="py-3">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+            <div class="breadcrumb d-flex justify-content-center">
+                {% if article %}
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item active">{{ article.date|strftime('%B') }} {{ article.date|strftime('%Y') }}</li>
+                <li class="breadcrumb-item active">{{ article.title }}</li>
+                {% elif page_name == 'index' %}
+                <li class="breadcrumb-item active">Home</li>
+                <li class="breadcrumb-item"><a href="/about/">About</a></li>
+                {% elif page_name == 'tags/index' %}
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item active">Tags</li>
+                {% elif tag %}
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="/tags/">Tags</a></li>
+                <li class="breadcrumb-item active">{{ tag }}</li>
+                {% elif output_file == 'about/index.html' %}
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item active">About</li>
+                {% elif page.title == 'Not Found' %}
+                <li class="breadcrumb-item active">Oops!</li>
+                {% endif %}
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% block content %}
+  {% endblock %}
+</body>
+</html>
