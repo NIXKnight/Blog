@@ -1,46 +1,63 @@
 {% if DEFAULT_PAGINATION %}
-<div>
-  <nav aria-label="Page navigation example">
-  <ul class="pagination">
+<nav aria-label="Article pagination">
+  <ul class="pagination justify-content-center">
     {% if articles_page.has_previous() %}
     <li class="page-item">
-      <a class="page-link" style="color:white" href="/{{ articles_previous_page.url }}">Prev</a>
+      <a class="page-link bg-primary text-white border-0" href="/{{ articles_previous_page.url }}" aria-label="Previous page">
+        <span aria-hidden="true">&laquo;</span> Prev
+      </a>
+    </li>
+    {% else %}
+    <li class="page-item disabled">
+      <span class="page-link bg-primary text-white-50 border-0" aria-hidden="true">
+        <span aria-hidden="true">&laquo;</span> Prev
+      </span>
     </li>
     {% endif %}
-    {% for page in range(articles_paginator.num_pages) -%}
+    {% for page in range(articles_paginator.num_pages) %}
       {% if articles_page.number > 9999 %}
         {% set url_for_this_page = articles_page.url[:-10] %}
       {% elif articles_page.number > 999 %}
-        {% set url_for_this_page = articles_page.url[::-9] %}
-      {% elif articles_page.number >99 %}
+        {% set url_for_this_page = articles_page.url[:-9] %}
+      {% elif articles_page.number > 99 %}
         {% set url_for_this_page = articles_page.url[:-8] %}
       {% elif articles_page.number > 9 %}
         {% set url_for_this_page = articles_page.url[:-7] %}
-      {% elif articles_page.number >1  %}
+      {% elif articles_page.number > 1 %}
         {% set url_for_this_page = articles_page.url[:-6] %}
       {% else %}
         {% set url_for_this_page = articles_page.url[:-5] %}
       {% endif %}
-      {% if page+1 == articles_page.number %}
-    <li class="page-item active">
-      <a class="page-link" style="background:#346CB1" href="/">{{ page+1 }}</a>
-    </li>
-    {% else %}
-    {% if page+1 == 1 %}
-    <li class="page-item">
-      <a class="page-link" style="color:white" href="/">{{ page+1 }}</a>
-    </li>
-    {% else %}
-    <li class="page-item">
-      <a class="page-link" style="color:white" href="/page/{{ url_for_this_page }}{{ page+1 }}">{{ page+1 }}</a>
-    </li>
-    {% endif %}
-    {% endif %}
-    {%- endfor %}
+      {% if page + 1 == articles_page.number %}
+        <li class="page-item active" aria-current="page">
+          <span class="page-link bg-primary border-0">
+            {{ page + 1 }}
+            <span class="visually-hidden">(current)</span>
+          </span>
+        </li>
+      {% else %}
+        <li class="page-item">
+          {% if page + 1 == 1 %}
+            <a class="page-link bg-primary text-white border-0" href="/" aria-label="Page {{ page + 1 }}">{{ page + 1 }}</a>
+          {% else %}
+            <a class="page-link bg-primary text-white border-0" href="/page/{{ url_for_this_page }}{{ page + 1 }}" aria-label="Page {{ page + 1 }}">{{ page + 1 }}</a>
+          {% endif %}
+        </li>
+      {% endif %}
+    {% endfor %}
     {% if articles_page.has_next() %}
     <li class="page-item">
-      <a  class="page-link" style="color:white" href="{{ articles_next_page.url }}">Next</a>
+      <a class="page-link bg-primary text-white border-0" href="{{ articles_next_page.url }}" aria-label="Next page">
+        Next <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+    {% else %}
+    <li class="page-item disabled">
+      <span class="page-link bg-primary text-white-50 border-0" aria-hidden="true">
+        Next <span aria-hidden="true">&raquo;</span>
+      </span>
     </li>
     {% endif %}
-    </ul>
+  </ul>
+</nav>
 {% endif %}

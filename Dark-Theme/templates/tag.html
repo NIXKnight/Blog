@@ -1,27 +1,45 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
         {% for article in articles %}
           <div class="list-group list-spacer">
-            <article class="list-group-item border-0 text-center">
+            <article class="list-group-item border-0 text-center" itemscope itemtype="https://schema.org/BlogPosting">
               <header>
                 <div class="w-100 justify-content-center">
-                  <h3 class="mb-1"><strong><a href="/{{ article.url }}">{{ article.title }}</a></strong></h2>
+                  <h3 class="mb-1">
+                    <strong>
+                      <a href="/{{ article.url }}" class="text-decoration-none" itemprop="url">
+                        <span itemprop="headline">{{ article.title }}</span>
+                      </a>
+                    </strong>
+                  </h3>
                 </div>
-                <p class="mb-1 lead">{{ article.description|striptags }}</p>
+                <p class="mb-1 lead" itemprop="description">{{ article.description|striptags }}</p>
                 <p class="mb-1 text-muted">
                   <span class="date-published">
-                    <i class="fas fa-newspaper px-2"></i><strong>Published:</strong>{{ article.date|strftime('%B %d, %Y') }}
+                    <i class="fas fa-newspaper px-2"></i>
+                    <strong>Published:</strong>
+                    <time itemprop="datePublished" datetime="{{ article.date }}">
+                      {{ article.date|strftime('%B %d, %Y') }}
+                    </time>
                   </span>
                   {% if article.modified %}
                   <span class="last-updated">
-                    <i class="far fa-calendar-alt px-2"></i><strong>Last Updated:</strong><time class="entry-modified-time" itemprop="dateModified" datetime="{{ article.modified }}">{{ article.modified|strftime('%B %d, %Y') }}</time>
+                    <i class="far fa-calendar-alt px-2"></i>
+                    <strong>Last Updated:</strong>
+                    <time itemprop="dateModified" datetime="{{ article.modified }}">
+                      {{ article.modified|strftime('%B %d, %Y') }}
+                    </time>
                   </span>
                   {% endif %}
-                  <i class="fas fa-user-circle px-2"></i><strong>Author:</strong><span class="author">Saad Ali</span>
-              </p>
+                  <i class="fas fa-user-circle px-2"></i>
+                  <strong>Author:</strong>
+                  <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+                    <span itemprop="name">Saad Ali</span>
+                  </span>
+                </p>
               </header>
             </article>
           </div>
