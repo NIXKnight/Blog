@@ -80,3 +80,9 @@ SITEMAP = {
     'pages': 'monthly',
   }
 }
+
+# Pygments configuration
+CODE_HIGHLIGHTER = "pygments"
+PYGMENTS_STYLE = 'one-dark'
+# optional, for reST blocks only
+PYGMENTS_RST_OPTIONS = {"linenos": "table"}   # or "inline", "None", etc.
