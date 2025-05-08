@@ -8,6 +8,14 @@ SITESUBTITLE = 'Not just another NIX admin'
 # Content Path
 PATH = "content"
 
+# Static paths
+STATIC_PATHS = [
+  'images',
+  'extra',
+  'pages',
+  'casts'
+]
+
 # Plugins Configuration
 PLUGINS = [ 'sitemap' ]
 
