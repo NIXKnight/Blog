@@ -44,11 +44,17 @@
       "author": {
         "@type": "Person",
         "name": "Saad Ali",
+        "url": "{{ SITEURL }}/about/",
         "sameAs": [
           "https://twitter.com/SaadKnight",
           "https://www.linkedin.com/in/saadali27/",
           "https://github.com/NIXKnight"
         ]
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Saad Ali",
+        "url": "{{ SITEURL }}/about/"
       }
     }
     </script>
@@ -61,7 +67,7 @@
     <link rel="publisher" href="https://twitter.com/SaadKnight">
 
     {# Schema.org markup for articles #}
-    <script type="application/ld+json">
+  <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "BlogPosting",
@@ -71,17 +77,35 @@
       },
       "headline": "{{ article.title }}",
       "description": "{{ article.description|striptags }}",
+      "keywords": "{{ article.tags|join(', ') }}",
       "author": {
         "@type": "Person",
-        "name": "Saad Ali"
+        "name": "Saad Ali",
+        "url": "{{ SITEURL }}/about/",
+        "sameAs": [
+          "https://twitter.com/SaadKnight",
+          "https://www.linkedin.com/in/saadali27/",
+          "https://github.com/NIXKnight"
+        ]
       },
       "datePublished": "{{ article.date }}",
       {% if article.modified %}
       "dateModified": "{{ article.modified }}",
+      {% else %}
+      "dateModified": "{{ article.date }}",
+      {% endif %}
+      {% if article.image %}
+      "image": {
+        "@type": "ImageObject",
+        "url": "{{ SITEURL }}/{{ article.image }}",
+        "width": "1200",
+        "height": "630"
+      },
       {% endif %}
       "publisher": {
-        "@type": "Organization",
-        "name": "{{ SITENAME }}",
+        "@type": "Person",
+        "name": "Saad Ali",
+        "url": "{{ SITEURL }}/about/"
       }
     }
     </script>
